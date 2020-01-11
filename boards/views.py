@@ -9,9 +9,7 @@ from django.utils.decorators import method_decorator
 
 from .forms import NewTopicForm, PostForm
 from .models import Board, Post, Topic
-
-
-class BoardListView(ListView):
+  class BoardListView(ListView):
     model = Board
     context_object_name = 'boards'
     template_name = 'home.html'

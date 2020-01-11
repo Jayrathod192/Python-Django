@@ -4,6 +4,23 @@ from django.utils.text import Truncator
 from django.utils.html import mark_safe
 from markdown import markdown
 import math
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String, Date
+
+Base = declarative_base()
+
+
+class Book(Base):
+    __tablename__ = 'books'
+    id = Column(Integer, primary_key=True)
+    title = Column(String)
+    author = Column(String)
+    pages = Column(Integer)
+    published = Column(Date)
+
+    def __repr__(self):
+        return "<Book(title='{}', author='{}', pages={}, published={})>" \
+            .format(self.title, self.author, self.pages, self.published)
 
 
 class Board(models.Model):
@@ -48,6 +65,7 @@ class Topic(models.Model):
 
     def get_last_ten_posts(self):
         return self.posts.order_by('-created_at')[:10]
+
 
 class Post(models.Model):
     message = models.TextField(max_length=4000)
